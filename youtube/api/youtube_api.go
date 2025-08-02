@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"youtube/downloader"
+	"youtube/types"
 )
 
 // YouTubeAPI handles YouTube API interactions
@@ -24,7 +24,7 @@ func NewYouTubeAPI(apiKey, channelId string) *YouTubeAPI {
 }
 
 // GetPlaylistItems retrieves all video items from the channel's uploads playlist
-func (api *YouTubeAPI) GetPlaylistItems() ([]downloader.PlaylistItem, error) {
+func (api *YouTubeAPI) GetPlaylistItems() ([]types.PlaylistItem, error) {
 	// 1. アップロード動画プレイリストIDを取得
 	uploadsPlaylistId, err := api.getUploadsPlaylistId()
 	if err != nil {
@@ -78,8 +78,8 @@ func (api *YouTubeAPI) getUploadsPlaylistId() (string, error) {
 }
 
 // getPlaylistVideos retrieves all videos from the specified playlist
-func (api *YouTubeAPI) getPlaylistVideos(playlistId string) ([]downloader.PlaylistItem, error) {
-	var allItems []downloader.PlaylistItem
+func (api *YouTubeAPI) getPlaylistVideos(playlistId string) ([]types.PlaylistItem, error) {
+	var allItems []types.PlaylistItem
 	nextPageToken := ""
 
 	for {
@@ -121,7 +121,7 @@ func (api *YouTubeAPI) getPlaylistVideos(playlistId string) ([]downloader.Playli
 
 		// 現在のページのアイテムを追加
 		for _, item := range playlistResp.Items {
-			allItems = append(allItems, downloader.PlaylistItem{
+			allItems = append(allItems, types.PlaylistItem{
 				Title:   item.Snippet.Title,
 				VideoId: item.Snippet.ResourceId.VideoId,
 			})

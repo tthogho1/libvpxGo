@@ -7,14 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"youtube/types"
+
 	"github.com/kkdai/youtube/v2"
 )
-
-// PlaylistItem represents a single video item from a YouTube playlist
-type PlaylistItem struct {
-	Title   string
-	VideoId string
-}
 
 // VideoDownloader handles YouTube video downloads
 type VideoDownloader struct {
@@ -31,7 +27,7 @@ func NewVideoDownloader(outputDir string) *VideoDownloader {
 }
 
 // DownloadVideos downloads all videos from the provided playlist items
-func (d *VideoDownloader) DownloadVideos(items []PlaylistItem) error {
+func (d *VideoDownloader) DownloadVideos(items []types.PlaylistItem) error {
 	// 出力ディレクトリが存在しない場合は作成
 	if err := os.MkdirAll(d.outputDir, 0755); err != nil {
 		return fmt.Errorf("failed to create output directory: %v", err)
@@ -55,7 +51,7 @@ func (d *VideoDownloader) DownloadVideos(items []PlaylistItem) error {
 }
 
 // downloadSingleVideo downloads a single video
-func (d *VideoDownloader) downloadSingleVideo(videoUrl string, item PlaylistItem) error {
+func (d *VideoDownloader) downloadSingleVideo(videoUrl string, item types.PlaylistItem) error {
 	video, err := d.client.GetVideo(videoUrl)
 	if err != nil {
 		return fmt.Errorf("failed to get video: %v", err)
