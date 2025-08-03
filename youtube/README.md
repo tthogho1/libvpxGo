@@ -45,6 +45,7 @@ go run main.go -mode=download
 ### 環境変数の設定
 
 1. `.env.example`ファイルを`.env`にコピーしてください：
+
    ```bash
    cp .env.example .env
    ```
@@ -64,7 +65,7 @@ YOUR_CHANNEL_ID=your_actual_channel_id
 DOWNLOAD_DIR=./downloads
 ```
 
-**注意**: `.env`ファイルには機密情報が含まれるため、Gitにコミットしないでください。このファイルは`.gitignore`で除外されています。
+**注意**: `.env`ファイルには機密情報が含まれるため、Git にコミットしないでください。このファイルは`.gitignore`で除外されています。
 
 ## プロジェクト構造
 
